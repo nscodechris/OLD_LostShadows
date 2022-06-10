@@ -1,3 +1,6 @@
+# DONT EDIT THIS VERSION!!!
+
+
 # Hero Classes
 import math
 import time
