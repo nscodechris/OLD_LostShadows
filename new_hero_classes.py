@@ -1,9 +1,6 @@
 
 # Edit version
-# comments
-# trying to see if the other computer sees this!
-# testing new branch,
-# This version merge into working_file branch!
+# This version merge in to main, when testet and tested!!
 
 
 # Hero Classes
