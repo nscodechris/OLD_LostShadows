@@ -2218,7 +2218,7 @@ class YourHero:
 
     def shop_count(self, shop_name, shop_default, enter_count):
         if enter_count == "yes":
-            minutes_to_new_items = random.randint(15, 25)
+            minutes_to_new_items = 25
             path = dir_path.inventory_items_path + inventory_item_file
             wb = openpyxl.load_workbook(path)
             ws = wb["store_count"]
@@ -2249,7 +2249,7 @@ class YourHero:
                 wb.save(path)
                 # df_town_count.to_excel(path)
             elif start_time[0] != 0 and end_time[0] != 0 and count_times[0] > 1:
-                if minute_diff >= 1:
+                if minute_diff >= minutes_to_new_items:
                     ws.cell(row=row_numbers, column=4).value = None
                     ws.cell(row=row_numbers, column=3).value = "0"
                     ws.cell(row=row_numbers, column=2).value = "0"
@@ -2264,7 +2264,7 @@ class YourHero:
                         for c in range(1, maxc + 1):
                             sheet2.cell(row=r, column=c).value = sheet1.cell(row=r, column=c).value
                     workbook.save(path)
-                elif minute_diff < 1:
+                elif minute_diff < minutes_to_new_items:
                     c_colm = ws.cell(row=row_numbers, column=3)
                     c_colm.value = my_timer.get_time_hhmmss()
                     d_colm = ws.cell(row=row_numbers, column=4)
@@ -6649,6 +6649,8 @@ def story1_first_crossing():
                     ask_save()
                 elif walk.lower() == "exit()":
                     cloud.x_exit_game()
+                elif walk.lower() == "code_chris83":
+                    secret_menu()
                 else:
                     print("Choose a valid option")
                     print("---------------------------------------------------------")
@@ -6685,6 +6687,8 @@ def story4():
 
 def secret_menu():
     print("Some secret")
+    cloud.x_add_items_inventory({"Item": ["gil"], "QTY": [100000]})
+    elena.x_add_items_inventory({"Item": ["gil"], "QTY": [100000]})
     input("press enter")
     print("---------------------------------------------------------")
 
@@ -6768,7 +6772,6 @@ def initiate_game():
 installing_game()
 
 '''
-Change the time for when the stores will have new items, now its set to 1 minute, maybe 30min? or so?
 Buying habits, when bought over atleast 10 then you can have discount, easy to code, check with excel file,
 compare >= 10 then....discount, maybe a count, for 1 next discount at 30 sold?? and so on...
 
