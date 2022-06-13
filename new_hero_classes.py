@@ -1,6 +1,8 @@
 
 # Edit version
 # comments
+# trying to see if the other computer sees this!
+
 
 # Hero Classes
 import math
@@ -4489,7 +4491,6 @@ class GetImportant:
     def important_paths(self):
         place_find = os.path.abspath(self.install_file)
         use_path_folder = place_find[:42]
-        print(use_path_folder)
         f = open("lost_shadow_installed.txt", "w+")
         f.write(use_path_folder)
         use_pdf_input = use_path_folder.replace("\\", "\\\\")
