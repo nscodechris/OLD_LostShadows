@@ -1,0 +1,38 @@
+*********************************************************************************************************************
+
+Iron gloves recieved in basement of round_room
+Snow Boots in the mountains after recieving the iron gloves
+Tall trees bloom is found in the town somehere..... talking to soeone out side the in, recievig
+the kwi 3, then in ally talking to woman in green, you will have the name of the kwi3
+1 st time recieing key world item 3 = "rumor" after talking to woman in green hat in ally, it will 
+be "Tall Trees blooms in winter"
+
+self.key_world_item = 0
+self.key_world_item_name = "Snow Boots"
+self.key_world_item_2 = 0
+self.key_world_item_name_2 = "Iron Gloves"
+self.key_world_item_name_3 = "Tall trees blooms in winter"
+self.key_world_item_3 = 0
+too display key world item: 
+cloud.x_see_inventory_name_qty("item", "key world item 2")
+to add a key world item:
+cloud.x_add_items_inventory({"Item": ["Key world item 2"], "QTY": ["Iron Gloves"]})
+
+check if it is in inventory:
+if "Snow Boots" in cloud.x_see_inventory_name_qty("item", "Key world item 2"):
+
+*********************************************************************************************************************
+
+
+item_list = pd.DataFrame(self.inventory)
+        snake_ring = "The mark of the Serpents"
+        silver_ring = "Silver ring"
+        if snake_ring not in item_list.values:
+
+*********************************************************************************************************************
+Story_chapter:
+self.chap_1_names = ["Intro", "", "the_crossing", "abreheim_town_in", "ally_in_abrehiem",
+                             "dark_ally_in_abrehiem", "round_room", "basement", "south_snow"]
+
+        self.chapter_names = ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"]
+*********************************************************************************************************************
