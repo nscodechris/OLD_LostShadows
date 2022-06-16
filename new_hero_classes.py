@@ -5726,14 +5726,13 @@ def story1_snow_in_south():
     print("---------------------------------------------------------")
     tprint("Snow in south")
     print("---------------------------------------------------------")
-    if "Snow Boots" in cloud.x_see_inventory_name_qty("item", "key_world_item_name"):
+    if "Snow Boots" in cloud.x_see_inventory_name_qty("item", "Key world item"):
         print("You put your snow boots on, and start walk, feeling the snow crunch under neath you")
         print("---------------------------------------------------------")
     else:
         while True:
             if escape == 0:
-                print("Without the", cloud.x_see_inventory_name_qty("item", "key_world_item_name"),
-                      "Its impossible to walk")
+                print("Without the snow boots...\nIts impossible to walk")
                 print("You take some steps but falls down in the deep snow and get stuck,"
                       " something is moving in the snow!!!")
                 print("---------------------------------------------------------")
