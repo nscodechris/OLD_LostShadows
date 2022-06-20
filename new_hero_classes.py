@@ -1,7 +1,6 @@
 
 # Edit version
-# This version merge in to main, when testet and tested!!
-
+#
 
 # Hero Classes
 import math
@@ -2048,7 +2047,7 @@ class YourHero:
                                 self.armory_inventory["Equipped"].append("False")
                                 print("You can equipped the", buy_weapon, "in the inventory menu")
                         else:
-                            print("Not at right level")
+                            print("Sorry you ar not at the right level,\nAnd can not buy this!!")
                 else:
                     print("Sorry we don't have that")
                     print("---------------------------------------------------------")
@@ -2219,7 +2218,7 @@ class YourHero:
 
     def shop_count(self, shop_name, shop_default, enter_count):
         if enter_count == "yes":
-            minutes_to_new_items = random.randint(15, 25)
+            minutes_to_new_items = 25
             path = dir_path.inventory_items_path + inventory_item_file
             wb = openpyxl.load_workbook(path)
             ws = wb["store_count"]
@@ -2250,7 +2249,7 @@ class YourHero:
                 wb.save(path)
                 # df_town_count.to_excel(path)
             elif start_time[0] != 0 and end_time[0] != 0 and count_times[0] > 1:
-                if minute_diff >= 1:
+                if minute_diff >= minutes_to_new_items:
                     ws.cell(row=row_numbers, column=4).value = None
                     ws.cell(row=row_numbers, column=3).value = "0"
                     ws.cell(row=row_numbers, column=2).value = "0"
@@ -2265,7 +2264,7 @@ class YourHero:
                         for c in range(1, maxc + 1):
                             sheet2.cell(row=r, column=c).value = sheet1.cell(row=r, column=c).value
                     workbook.save(path)
-                elif minute_diff < 1:
+                elif minute_diff < minutes_to_new_items:
                     c_colm = ws.cell(row=row_numbers, column=3)
                     c_colm.value = my_timer.get_time_hhmmss()
                     d_colm = ws.cell(row=row_numbers, column=4)
@@ -3692,7 +3691,7 @@ class YourHero:
                 input("press enter")
 
     def x_enemy_dead(self, hero1, hero2, boss):
-        play.music_loop(play.sound_chapter_1[14])
+        play.music_loop(play.music_battle[1])
         print("---------------------------------------------------------")
         print(victory_text)
         print("---------------------------------------------------------")
@@ -3700,7 +3699,7 @@ class YourHero:
 
     def x_battle_one(self, hero1, hero2, boss):
 
-        play.music_loop(play.sound_chapter_1[12])
+        play.music_loop(play.music_battle[0])
         Enemy.ex_gen_enemy(enemy)
         enemy.e_hp = Enemy.ex_hp(enemy)
         enemy.ex_initials_stats()
@@ -4307,93 +4306,104 @@ class ChooseEnemy:
 
 class Music:
 
+
+    music_chapter_1_mp3 = None
+    music_for_all_mp3 = None
+    music_battle_mp3 = None
+    music_main_mp3 = None
+
+
     def __init__(self):
+        self.music_main_mp3 = ["intro.mp3", "sleeping_at_in.mp3"]
+        self.music_for_all_mp3 = ["sleep_song.mp3"]
+        self.music_battle_mp3 = ["battle_one.mp3", "battle_win.mp3"]
 
-        self.sound_intro = "intro.mp3"
-        self.sound_chapter_1_round_room = "chapter_1_round_room.mp3"
-        self.sound_sleep = "sleep_song.mp3"
-        self.sound_battle = "battle_one.mp3"
-        self.sound_win = "battle_win.mp3"
-        self.sound_chapter_1_abreheim = "chapter_1_town_abreheim.mp3"
-        self.sound_chapter_1_forest = "chapter_1_forest.mp3"
-        self.sound_chapter_1_snow = "chapter_1_snow_area.mp3"
-        self.sound_chapter_1_mountain = "chapter_1_mountain.mp3"
-        self.sound_chapter_1_crossing = "chapter_1_the_crossing.mp3"
-        self.sound_chapter_1_item_shop = "chapter_1_item_shop.mp3"
-        self.sound_chapter_1_abrehiem_ally = "chapter_1_abrehiem_ally.mp3"
-        self.sound_chapter_1_abrehiem_inn = "chapter_1_abreheim_inn.mp3"
-        self.sound_chapter_1_weapon_shop = "chapter_1_abrehiem_ally_dark.mp3"
-        self.sound_chapter_1_abrehiem_dark_ally = "chapter_1_weapon_shop.mp3"
+        self.music_chapter_1_mp3 = ["chapter_1_the_crossing.mp3", "chapter_1_town_abreheim.mp3", "chapter_1_item_shop.mp3",
+                                "chapter_1_abrehiem_ally.mp3", "chapter_1_round_room.mp3", "chapter_1_abreheim_inn.mp3",
+                                "chapter_1_weapon_shop.mp3", "chapter_1_abrehiem_ally_dark.mp3",
+                                "chapter_1_forest.mp3", "chapter_1_snow_area.mp3", "chapter_1_mountain.mp3", "chapter_1_materia_shop.mp3"]
 
-        self.sound_chapter_1 = ["intro", "chapter_1_the_crossing", "chapter_1_town_abreheim", "chapter_1_item_shop",
+        self.sound_chapter_1 = ["chapter_1_the_crossing", "chapter_1_town_abreheim", "chapter_1_item_shop",
                                 "chapter_1_abrehiem_ally", "chapter_1_round_room", "chapter_1_abreheim_inn",
                                 "chapter_1_weapon_shop", "chapter_1_abrehiem_ally_dark",
-                                "chapter_1_forest", "chapter_1_snow_area", "chapter_1_mountain",
-                                "x_battle", "sleep_song", "battle_win"]
+                                "chapter_1_forest", "chapter_1_snow_area", "chapter_1_mountain", "chapter_1_materia_shop"]
+
+        self.music_main = ["intro", "sleeping_at_in"]
+        self.music_battle = ["x_battle", "battle_win"]
+        self.music_for_all = ["sleep_song"]
 
     def music_loop(self, music_name):
         elena.music_name = music_name
 
-        if elena.music_name == self.sound_chapter_1[0]:
+        if elena.music_name == self.music_main[0]:
             os.chdir(dir_path.music_main_intro)
-            pygame.mixer.music.load(play.sound_intro)
+            pygame.mixer.music.load(play.music_main_mp3[0])
+            pygame.mixer.music.play(-1)
+        elif elena.music_name == self.music_main[1]:
+            os.chdir(dir_path.battle_path)
+            pygame.mixer.music.load(play.music_battle_mp3[1])
+            pygame.mixer.music.play(-1)
+        elif elena.music_name == self.music_for_all[0]:
+            os.chdir(dir_path.battle_path)
+            pygame.mixer.music.load(play.music_for_all_mp3[0])
+            pygame.mixer.music.play(-1)
+        elif elena.music_name == self.music_battle[0]:
+            os.chdir(dir_path.battle_path)
+            pygame.mixer.music.load(play.music_battle_mp3[0])
+            pygame.mixer.music.play(-1)
+        elif elena.music_name == self.music_battle[1]:
+            os.chdir(dir_path.battle_path)
+            pygame.mixer.music.load(play.music_battle_mp3[1])
+            pygame.mixer.music.play(-1)
+        elif elena.music_name == self.sound_chapter_1[0]:
+            os.chdir(dir_path.chapter_1_path)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[0])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[1]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_crossing)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[1])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[2]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_abreheim)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[2])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[3]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_item_shop)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[3])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[4]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_abrehiem_ally)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[4])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[5]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_round_room)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[5])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[6]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_abrehiem_inn)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[6])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[7]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_weapon_shop)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[7])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[8]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_abrehiem_dark_ally)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[8])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[9]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_forest)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[9])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[10]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_snow)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[10])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.sound_chapter_1[11]:
             os.chdir(dir_path.chapter_1_path)
-            pygame.mixer.music.load(play.sound_chapter_1_mountain)
+            pygame.mixer.music.load(play.music_chapter_1_mp3[11])
             pygame.mixer.music.play(-1)
-        elif elena.music_name == self.sound_chapter_1[12]:
-            os.chdir(dir_path.battle_path)
-            pygame.mixer.music.load(play.sound_battle)
-            pygame.mixer.music.play(-1)
-        elif elena.music_name == self.sound_chapter_1[13]:
-            os.chdir(dir_path.for_all_path)
-            pygame.mixer.music.load(play.sound_sleep)
-            pygame.mixer.music.play(-1)
-        elif elena.music_name == self.sound_chapter_1[14]:
-            os.chdir(dir_path.battle_path)
-            pygame.mixer.music.load(play.sound_win)
-            pygame.mixer.music.play(-1)
+
         else:
             print("end of music")
 
@@ -4461,19 +4471,18 @@ class CodeDigits:
         self.keep_code_4_digits_box_1 = self.code_4_digits_box_1
 
 
-class GetImportant:
+class GetImportant(Music):
     def __init__(self):
+        super().__init__()
+        
         self.install_file = "#_code_chris_098421_path_finder.txt"
         self.important = ""
         self.folder_name = ["save", "enemy", "inventory_items", "magic", "music", "weapons_armor", "level"]
         self.folder_music = ["main_intro", "chapter_1", "for all", "battle"]
-        self.music_main_mp3 = ["intro.mp3", "sleeping_at_in.mp3"]
-        self.music_chapter_1_mp3 = ["chapter_1_abreheim_inn.mp3", "chapter_1_abrehiem_ally.mp3", "chapter_1_abrehiem_ally_dark.mp3",
-             "chapter_1_forest.mp3", "chapter_1_item_shop.mp3", "chapter_1_mountain.mp3", "chapter_1_round_room.mp3"
-                , "chapter_1_snow_area.mp3", "chapter_1_the_crossing.mp3", "chapter_1_town_abreheim.mp3",
-             "chapter_1_weapon_shop.mp3"]
-        self.music_for_all_mp3 = ["sleep_song.mp3"]
-        self.music_battle_mp3 = ["battle_one.mp3", "battle_win.mp3"]
+        self.music_main_mp3 = Music.music_main_mp3
+        self.music_chapter_1_mp3 = Music.music_chapter_1_mp3
+        self.music_for_all_mp3 = Music.music_for_all_mp3
+        self.music_battle_mp3 = Music.music_battle_mp3
         self.dir_path = []
         self.save = 0
         self.enemy = 1
@@ -4604,7 +4613,7 @@ def x_save_hero():
             if user_input == "save over file":
                 temp_folder = "save_temp" + "\\\\"
                 temp_save = dir_path.save_path + temp_folder
-                print(temp_save)
+                # print(temp_save)
                 save_file = shelve.open(temp_save + file_name + date)
                 # Elena
                 save_file['hero.exp_show'] = elena.exp_show
@@ -5299,7 +5308,7 @@ def main_game():
 def story1_round_room():
     while True:
         elena.progress = story.story_name_loop(story.chapter_names[0], story.chap_1_names[6])
-        play.music_loop(play.sound_chapter_1[5])
+        play.music_loop(play.sound_chapter_1[4])
         room = 1
         room_time = 0
         # second = ""
@@ -5654,7 +5663,7 @@ def story1_basement():
 
 
 def story1_mountains_in_north():
-    play.music_loop(play.sound_chapter_1[11])
+    play.music_loop(play.sound_chapter_1[10])
     print("---------------------------------------------------------")
     tprint("Mountains in north")
     print("---------------------------------------------------------")
@@ -5673,7 +5682,7 @@ def story1_forest_in_east():
     reward = 0
     while True:
         while reward <= 5:
-            play.music_loop(play.sound_chapter_1[9])
+            play.music_loop(play.sound_chapter_1[8])
             print("---------------------------------------------------------")
             tprint("Forest in east")
             print("---------------------------------------------------------")
@@ -5722,19 +5731,18 @@ def story1_forest_in_east():
 
 def story1_snow_in_south():
     elena.progress = story.story_name_loop(story.chapter_names[0], story.chap_1_names[8])
-    play.music_loop(play.sound_chapter_1[10])
+    play.music_loop(play.sound_chapter_1[9])
     escape = 0
     print("---------------------------------------------------------")
     tprint("Snow in south")
     print("---------------------------------------------------------")
-    if "Snow Boots" in cloud.x_see_inventory_name_qty("item", "key_world_item_name"):
+    if "Snow Boots" in cloud.x_see_inventory_name_qty("item", "Key world item"):
         print("You put your snow boots on, and start walk, feeling the snow crunch under neath you")
         print("---------------------------------------------------------")
     else:
         while True:
             if escape == 0:
-                print("Without the", cloud.x_see_inventory_name_qty("item", "key_world_item_name"),
-                      "Its impossible to walk")
+                print("Without the snow boots...\nIts impossible to walk")
                 print("You take some steps but falls down in the deep snow and get stuck,"
                       " something is moving in the snow!!!")
                 print("---------------------------------------------------------")
@@ -5746,7 +5754,7 @@ def story1_snow_in_south():
                     if escape_chance >= 3:
                         print("You manage to get up from the snow, and crawl your way back before they come")
                         print("---------------------------------------------------------")
-                        escape = 1
+                        escape += 1
                         story1_first_crossing()
                     elif escape_chance <= 2:
                         print("You desperate try to crawl your self up from the snow, but fail,"
@@ -5766,7 +5774,7 @@ def story1_abrehiem_town():
     print("---------------------------------------------------------")
     time.sleep(time_short_wait)
     while True:
-        play.music_loop(play.sound_chapter_1[2])
+        play.music_loop(play.sound_chapter_1[1])
         while town == 1:
             if town == 1:
                 print("---------------------------------------------------------")
@@ -5794,19 +5802,23 @@ def story1_abrehiem_town():
                     print("When you come to the counter and friendly clerk greets you")
                     print("---------------------------------------------------------")
                     input("press enter to continue")
-                    play.music_loop(play.sound_chapter_1[3])
+                    play.music_loop(play.sound_chapter_1[2])
                     YourHero.x_shop(elena, "Abreheim's items", "Lisa", "Abreheim's items_default", "yes")
                     YourHero.x_shop(cloud, "Abreheim's items", "Lisa", "Abreheim's items_default", "no")
-                    play.music_loop(play.sound_chapter_1[2])
+                    play.music_loop(play.sound_chapter_1[1])
                     # print("Something more")
                     input("Press enter to continue")
                 elif "materia shop" in walk_choice:
+                    # need to add music to this shop
+                    play.music_loop(play.sound_chapter_1[11])
                     YourHero.x_materia_shop(elena, "Abreheim's materia", "Mystica")
+                    YourHero.x_materia_shop(cloud, "Abreheim's materia", "Mystica")
+                    play.music_loop(play.sound_chapter_1[1])
                 elif "weapon shop" in walk_choice:
-                    play.music_loop(play.sound_chapter_1[7])
+                    play.music_loop(play.sound_chapter_1[6])
                     YourHero.x_weapon_armory_shop(elena, "Abreheim's weapons", "Ophelia")
                     YourHero.x_weapon_armory_shop(cloud, "Abreheim's weapons", "Ophelia")
-                    play.music_loop(play.sound_chapter_1[2])
+                    play.music_loop(play.sound_chapter_1[1])
                     input("press enter to continue")
                 elif "umbrella" in walk_choice:
                     print("Hei there ")
@@ -5849,7 +5861,7 @@ def story1_inn_at_abreheim_town():
         stranger_at_bar = 0
         while stranger_at_bar == 0:
             if stranger_at_bar == 0:
-                play.music_loop(play.sound_chapter_1[6])
+                play.music_loop(play.sound_chapter_1[5])
                 print("When you enter the Abreheims Inn, like a warm hug the place takes you in")
                 print("In front of you is a woman standing at the counter and smiling")
                 print("To the left is the library and to the right is the restaurant")
@@ -6000,7 +6012,7 @@ def story1_inn_at_abreheim_town():
                 print("---------------------------------------------------------")
                 tprint("Sleeping")
                 print("---------------------------------------------------------")
-                play.music_loop(play.sound_chapter_1[13])
+                play.music_loop(play.music_for_all[0])
                 sleep_text = "zzzz....\n"
                 now = time.time()
                 future = now + 15
@@ -6013,7 +6025,7 @@ def story1_inn_at_abreheim_town():
                 rest_over = 0
                 while rest_over == 0:
                     if rest_over == 0:
-                        play.music_loop(play.sound_chapter_1[6])
+                        play.music_loop(play.music_main[1])
                         print("You wake up in one of the cozy beds at the inn")
                         print("It is a kind of a small room with two beds, a drawer,"
                               "\na closet and and a window.")
@@ -6118,7 +6130,7 @@ def story1_ally_in_abreheim(ally_count):
         ally = ally_count
         while ally == 1:
             if ally == 1:
-                play.music_loop(play.sound_chapter_1[4])
+                play.music_loop(play.sound_chapter_1[3])
                 elena.progress = story.story_name_loop(story.chapter_names[0], story.chap_1_names[4])
                 tprint("The  Ally")
                 print("---------------------------------------------------------")
@@ -6440,7 +6452,7 @@ def story1_ally_in_abreheim(ally_count):
                     input("press enter")
         while ally == 2:
             if ally == 2:
-                play.music_loop(play.sound_chapter_1[8])
+                play.music_loop(play.sound_chapter_1[7])
                 tprint("The dark Ally")
                 print("---------------------------------------------------------")
                 print("Will you survive???")
@@ -6467,7 +6479,7 @@ def intro():
     enemy.ex_initials_stats()
     enemy_2.ex_initials_stats()
     enemy_3.ex_initials_stats()
-    play.music_loop(play.sound_chapter_1[0])
+    play.music_loop(play.music_main[0])
     while True:
         skip_intro = input("Do you want to skip intro?")
         if skip_intro == "no" or skip_intro == "No":
@@ -6590,7 +6602,7 @@ def story1_first_crossing():
         while choice == 1:
             if choice == 1:
                 story.progress = story.story_name_loop(story.chapter_names[0], story.chap_1_names[2])
-                play.music_loop(play.sound_chapter_1[1])
+                play.music_loop(play.sound_chapter_1[0])
                 cloud.open_chest_count += 1
                 print("---------------------------------------------------------")
                 tprint("The  Crossing")
@@ -6650,6 +6662,8 @@ def story1_first_crossing():
                     ask_save()
                 elif walk.lower() == "exit()":
                     cloud.x_exit_game()
+                elif walk.lower() == "code_chris83":
+                    secret_menu()
                 else:
                     print("Choose a valid option")
                     print("---------------------------------------------------------")
@@ -6686,6 +6700,8 @@ def story4():
 
 def secret_menu():
     print("Some secret")
+    cloud.x_add_items_inventory({"Item": ["gil"], "QTY": [100000]})
+    elena.x_add_items_inventory({"Item": ["gil"], "QTY": [100000]})
     input("press enter")
     print("---------------------------------------------------------")
 
@@ -6769,7 +6785,6 @@ def initiate_game():
 installing_game()
 
 '''
-Change the time for when the stores will have new items, now its set to 1 minute, maybe 30min? or so?
 Buying habits, when bought over atleast 10 then you can have discount, easy to code, check with excel file,
 compare >= 10 then....discount, maybe a count, for 1 next discount at 30 sold?? and so on...
 
