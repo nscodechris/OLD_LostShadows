@@ -1,5 +1,5 @@
 
-# Edit version
+# Version to merge to main
 #
 
 # Hero Classes
