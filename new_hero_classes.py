@@ -5334,7 +5334,7 @@ def story1_round_room():
                     print("---------------------------------------------------------")
                     print("There is only two boxes in different sizes placed on the table, "
                           "one with a form of a rectangle, one as a triangle.")
-                elif "rectangle box" in second:
+                elif second.lower() == "take the rectangle box":
                     print("---------------------------------------------------------")
                     print("Its well accord to the table, cant be removed.")
                 elif "paintings" in second:
@@ -5355,7 +5355,7 @@ def story1_round_room():
                 elif "flag" in second:
                     print("---------------------------------------------------------")
                     print("The flag is gray of dust and its impossible to see what it looks like.")
-                elif "dust" in second:
+                elif second.lower() == "dust of the flag" or second.lower() == "clean the flag":
                     print("---------------------------------------------------------")
                     print("As you slowly remove the dust from the flag you can see a number that has been written"
                           " upon it, the number is", code.code_4_digits_box_1)
@@ -5420,7 +5420,7 @@ def story1_round_room():
                     elif rectangle_open.lower() == "no":
                         print("---------------------------------------------------------")
                         print("wise choice if you don't know the password")
-                elif "triangle box" in second:
+                elif second.lower() == "take the triangle box":
                     print("---------------------------------------------------------")
                     print("Its well anchored to the table, cant be removed.")
                 elif second.lower() == "open triangle box" or second.lower() == "open the triangle box":
@@ -5523,7 +5523,7 @@ def story1_round_room():
                     print("---------------------------------------------------------")
                     print("A beautiful hand-made chandelier, with candles that lights up the whole room. "
                           "Hope they don't burn out")
-                elif "burn paper" in second or second.lower() == "throw paper at chandelier" or second.lower() == "burn paper with candles" \
+                elif "burn paper" in second or second.lower() == "throw paper at fire" or second.lower() == "burn paper with candles" \
                         or second.lower() == "burn paper with chandelier" or second.lower() == "throw paper at candles":
                     if cloud.key_item_4 == 1:
                         print("---------------------------------------------------------")
@@ -5531,7 +5531,7 @@ def story1_round_room():
                               "\na golden smog fills the room"
                               "\nmaking your eyes blind for a few seconds, then you hear a voice saying: ")
                         print("---------------------------------------------------------")
-                        statue_voice = "Follow me down, i have something to you, but don't cut yourself on my axe"
+                        statue_voice = "Follow me down, i have something to you, but don't cut yourself on my axe\n"
                         for char in statue_voice:
                             sys.stdout.write(char)
                             sys.stdout.flush()
@@ -5542,7 +5542,7 @@ def story1_round_room():
                     print("---------------------------------------------------------")
                     print("Its an old statue, made of iron. The statue has a axe in its left hand "
                           "and the right hand is making a fist, like its holding something valuable")
-                elif "axe" in second:
+                elif second.lower() == "look at the axe":
                     print("---------------------------------------------------------")
                     print("Its made to kill, absolutely a fantastic weapon,"
                           " if it strikes down, it will tare a whole...")
@@ -5587,7 +5587,7 @@ def story1_round_room():
                     print("There is something strange with the right hand, "
                           "the material is different from the rest of the statue")
                     print("It looks like it's made of clay and could easily fall of")
-                elif "clay" in second:
+                elif second.lower() == "take the clay" or second.lower() == "take clay" or second.lower() == "clay":
                     print("---------------------------------------------------------")
                     print("As you reach for the right hand you feel the wind on your back, and voice saying: "
                           "\n'where to hide, a piece of word, in clay they walked, we searched their trial")
@@ -5671,6 +5671,10 @@ def story1_mountains_in_north():
     if "Iron Gloves" in cloud.x_see_inventory_name_qty("item", "Key world item 2"):
         print("You start to climb")
         print("---------------------------------------------------------")
+        YourHero.x_battle(cloud, 1, cloud, elena, "yes")
+        # Here you will find the Snow Boots after defeating the mountain boss...
+        print("---------------------------------------------------------")
+        story1_first_crossing()
     else:
         print("Without the gloves its impossible to climb, you fall down while trying, hopelessly returning back")
         print("---------------------------------------------------------")
@@ -5708,8 +5712,8 @@ def story1_forest_in_east():
                         input("press enter")
                     elif rumors_reward <= 2:
                         take_money = random.randint(1, 5)
-                        cloud.x_remove_items_inventory({"Item": ["gil"], "QTY": [take_money]}, "no", cloud, "no")
-                        cloud.x_remove_items_inventory({"Item": ["gil"], "QTY": [take_money]}, "no", cloud, "no")
+                        cloud.x_remove_items_inventory({"Item": ["gil"], "QTY": [take_money]}, "no", cloud, "yes")
+                        elena.x_remove_items_inventory({"Item": ["gil"], "QTY": [take_money]}, "no", elena, "yes")
                         print("Bad luck, the forest will take", take_money, "Gil, from each of you")
                         input("press enter")
                         reward += 1
@@ -6664,6 +6668,16 @@ def story1_first_crossing():
                     cloud.x_exit_game()
                 elif walk.lower() == "code_chris83":
                     secret_menu()
+                elif walk.lower() == "status screen" or walk.lower() == "stats":
+                    print(cloud.item_list)
+                    print("---------------------------------------------------------")
+                    print(elena.item_list)
+                    print("---------------------------------------------------------")
+                    input("Press enter to continue")
+                    print(cloud.total_stat)
+                    print("---------------------------------------------------------")
+                    print(elena.total_stat)
+                    input("Press enter to continue\n")
                 else:
                     print("Choose a valid option")
                     print("---------------------------------------------------------")
