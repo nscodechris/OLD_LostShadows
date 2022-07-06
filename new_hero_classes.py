@@ -5672,6 +5672,7 @@ def story1_mountains_in_north():
         print("You start to climb")
         print("---------------------------------------------------------")
         YourHero.x_battle(cloud, 1, cloud, elena, "yes")
+        #
         # Here you will find the Snow Boots after defeating the mountain boss...
         print("---------------------------------------------------------")
         story1_first_crossing()
