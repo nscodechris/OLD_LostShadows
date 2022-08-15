@@ -4315,8 +4315,8 @@ class Music:
 
 
     def __init__(self):
-        self.music_main_mp3 = ["intro.mp3", "sleeping_at_in.mp3"]
-        self.music_for_all_mp3 = ["sleep_song.mp3"]
+        self.music_main_mp3 = ["intro.mp3"]
+        self.music_for_all_mp3 = ["sleep_song.mp3","sleeping_at_in.mp3"]
         self.music_battle_mp3 = ["battle_one.mp3", "battle_win.mp3"]
 
         self.music_chapter_1_mp3 = ["chapter_1_the_crossing.mp3", "chapter_1_town_abreheim.mp3", "chapter_1_item_shop.mp3",
@@ -4329,9 +4329,10 @@ class Music:
                                 "chapter_1_weapon_shop", "chapter_1_abrehiem_ally_dark",
                                 "chapter_1_forest", "chapter_1_snow_area", "chapter_1_mountain", "chapter_1_materia_shop"]
 
-        self.music_main = ["intro", "sleeping_at_in"]
+
+        self.music_main = ["intro"]
         self.music_battle = ["x_battle", "battle_win"]
-        self.music_for_all = ["sleep_song"]
+        self.music_for_all = ["sleep_song", "sleeping_at_in"]
 
     def music_loop(self, music_name):
         elena.music_name = music_name
@@ -4340,9 +4341,10 @@ class Music:
             os.chdir(dir_path.music_main_intro)
             pygame.mixer.music.load(play.music_main_mp3[0])
             pygame.mixer.music.play(-1)
-        elif elena.music_name == self.music_main[1]:
+            # music main 1 the self.music_main 1 need to change mp3 file
+        elif elena.music_name == self.music_for_all[1]:
             os.chdir(dir_path.battle_path)
-            pygame.mixer.music.load(play.music_battle_mp3[1])
+            pygame.mixer.music.load(play.music_for_all[1])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.music_for_all[0]:
             os.chdir(dir_path.for_all_path)
@@ -6039,6 +6041,10 @@ def story1_inn_at_abreheim_town():
                 print("---------------------------------------------------------")
                 tprint("Sleeping")
                 print("---------------------------------------------------------")
+                cloud.x_initials_stats()
+                elena.x_initials_stats()
+                cloud.x_tent_use()
+                elena.x_tent_use()
                 play.music_loop(play.music_for_all[0])
                 sleep_text = "zzzz....\n"
                 now = time.time()
@@ -6052,7 +6058,7 @@ def story1_inn_at_abreheim_town():
                 rest_over = 0
                 while rest_over == 0:
                     if rest_over == 0:
-                        play.music_loop(play.music_main[1])
+                        play.music_loop(play.music_for_all[1])
                         print("You wake up in one of the cozy beds at the inn")
                         print("It is a kind of a small room with two beds, a drawer,"
                               "\na closet and and a window.")
