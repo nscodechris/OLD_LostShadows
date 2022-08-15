@@ -1,0 +1,20 @@
+Buy
+
+def magic_buy(self, buy_materia):
+
+
+self.magic_spells["Magic"].append(buy_material)
+self.magic_spells["mp cost"].append(YourHero.x_magic_cost(self, buy_material))
+self.magic_spells["AP"].append(0)
+self.magic_spells["Level"].append(1)
+self.magic_spells["Equipped"].append("True")
+
+sell
+delete row
+magic_list.drop(index=int(sell_material), inplace=True)
+
+def inv(self):
+ö
+magic, inventory
+magic_list = pd.Dataframe(self.magic_spells)
+magic_list = magic_list.rename(index=lambda x: x +1 )

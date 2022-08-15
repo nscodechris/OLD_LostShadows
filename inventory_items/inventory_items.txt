@@ -1,0 +1,19 @@
+ def x_items_list(self):
+
+        dots = ":     "
+        name_dot = self.name + dots
+
+        skills = {name_dot: [""],
+                  "Items": ["Potion", "Ether", "Antidote",
+                            "Phoenix_down", "Elixir", "Silver_Dust", "Key Item_1",
+                            "Key Item_2", "Key Item_3", "Key Item_4", "Tent", "Gil"],
+                  "Quantity": [self.potion, self.ether, self.antidote,
+                               self.phoenix_down, self.elixir,
+                               self.silver_dust, self.key_item_1_name,
+                               self.key_item_2_name, self.key_item_3_name, self.key_item_4_name, self.tent, self.gil],
+
+                  }
+        matrix_items = pd.DataFrame(skills, index=["", "", "", "", "", "", "", "", "", "", "", ""])
+
+        self.item_list = matrix_items
+        return matrix_items

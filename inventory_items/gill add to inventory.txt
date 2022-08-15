@@ -1,0 +1,11 @@
+                    elif item_use.lower() == "gil" or item_use.lower() == "Gil":
+                        use_count = input("How much do you want to give?\n")
+                        print("---------------------------------------------------------")
+                        if int(use_count) <= self.gil:
+                            self.gil = self.gil - int(use_count)
+                            give_to.gil = give_to.gil + int(use_count)
+                            print("You gave", use_count, "GIL", "to", give_to.name)
+                            print("---------------------------------------------------------")
+                        elif int(use_count) > self.gil:
+                            print("You don't have", use_count, "Gil")
+                            print("---------------------------------------------------------")
