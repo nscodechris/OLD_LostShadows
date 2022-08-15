@@ -18,6 +18,7 @@ import shutil
 import secrets
 import openpyxl
 import openpyxl as xl
+import hang_man_game
 
 
 
@@ -4344,7 +4345,7 @@ class Music:
             pygame.mixer.music.load(play.music_battle_mp3[1])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.music_for_all[0]:
-            os.chdir(dir_path.battle_path)
+            os.chdir(dir_path.for_all_path)
             pygame.mixer.music.load(play.music_for_all_mp3[0])
             pygame.mixer.music.play(-1)
         elif elena.music_name == self.music_battle[0]:
@@ -5626,6 +5627,8 @@ def story1_round_room():
                 YourHero.x_battle(cloud, 0, cloud, elena, "no")
 
 
+
+
 def story1_basement():
     while True:
         room = 2
@@ -5635,7 +5638,8 @@ def story1_basement():
                 print("---------------------------------------------------------")
                 print("The darkness have never been darken then down here, where is here???")
                 second = input("\nAfter the hatch closed behind you, you feel that you are not alone,"
-                               "\nsomeone or something is down there with you\n")
+                               "\nsomeone or something is down there with you\n"
+                               "What will you do?")
                 if second.lower() == "shout at the person you heard" or second.lower() == "hello" \
                         or second.lower() == "somebody there":
                     print("More coming up!!!")  # Here you will find the iron gloves world key item
@@ -5671,11 +5675,29 @@ def story1_mountains_in_north():
     if "Iron Gloves" in cloud.x_see_inventory_name_qty("item", "Key world item 2"):
         print("You start to climb")
         print("---------------------------------------------------------")
-        YourHero.x_battle(cloud, 1, cloud, elena, "yes")
-        #
-        # Here you will find the Snow Boots after defeating the mountain boss...
-        print("---------------------------------------------------------")
-        story1_first_crossing()
+        while True:
+            vertical = 1
+            # second = ""
+            while vertical == 1:
+                print("---------------------------------------------------------")
+                print("As you hold on to the hard cliffs you see a light coming out from the mountain to the left\n"
+                      "To the right you can see the shadows moves in a mysterious way")
+                where_to_climb = input("Where do you want to climb?")
+                if "left" in where_to_climb:
+                    vertical = 2
+                elif "right" in where_to_climb:
+                    vertical = 3
+
+            while vertical == 2:
+                print("You choose the left way....")
+                input("Press enter")
+                story1_first_crossing()
+
+            while vertical == 3:
+                print("You choose the right way....")
+                input("Press enter")
+                story1_first_crossing()
+                # YourHero.x_battle(cloud, 1, cloud, elena, "yes")
     else:
         print("Without the gloves its impossible to climb, you fall down while trying, hopelessly returning back")
         print("---------------------------------------------------------")
@@ -6679,6 +6701,12 @@ def story1_first_crossing():
                     print("---------------------------------------------------------")
                     print(elena.total_stat)
                     input("Press enter to continue\n")
+                elif walk.lower() == "hang man":
+                    hang_man_game.start_hang_man()
+                    if hang_man_game.user.win > 1:
+                        print("You are good")
+                    elif hang_man_game.user.win == 0:
+                        print("No good")
                 else:
                     print("Choose a valid option")
                     print("---------------------------------------------------------")

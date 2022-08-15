@@ -10,6 +10,13 @@ spaces = ['_'] * len(word)
 num_turns = 10
 count = 0
 
+class win_count:
+    def __init__(self):
+        self.win = 0
+
+
+user = win_count()
+
 def get_letter_position(guess, word, spaces):
     index = -2
     while index != -1:
@@ -92,7 +99,7 @@ def main_game(num_turns, word, spaces, count):
 
         if guess in word:
             word, spaces = get_letter_position(guess, word, spaces)
-            # print(spaces)
+            print(spaces)
             num_turns -= 1
         else:
             print('Sorry that letter is not in the word.')
@@ -103,12 +110,18 @@ def main_game(num_turns, word, spaces, count):
 
         if win_check() == 1:
             print('Congratulations you won')
+            user.win = 1
             break
         if num_turns == 0:
             count = 5
             hang_man_print(count)
             print(f"You loose, correct word is: {correct_word}")
+            user.win = 0
             break
         print(f'you have {num_turns} turns left.')
         print()
 
+def start_hang_man():
+    main_game(num_turns, word, spaces, count)
+
+# start_hang_man()

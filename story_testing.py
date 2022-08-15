@@ -13,6 +13,7 @@ while True:
     while vertical == 2:
         print("---------------------------------------------------------")
         print("You choose the left way....")
+        
         print("")
 
         input("Press enter")
